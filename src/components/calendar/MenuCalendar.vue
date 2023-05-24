@@ -1,43 +1,62 @@
 <template>
-  <div class="container flex items-center justify-center p-2 borer-2 border-green-500">
+  <div class="flex items-center justify-center p-2 text-lg drop-shadow-xl">
 
     <div class="ml-5">
       <label for="year">Year</label>
-      <select name="select-year" class="ml-2">
-        <option v-for="(item, id) in years" :key="id" value="item">{{ item }}</option>
+      <select v-model="selectYear" name="select-year" class="ml-2">
+        <option v-for="(item, index) in years" :key="index" :value="item" :selected="index === 0">{{ item }}</option>
       </select>
     </div>
 
     <div class="ml-5">
       <label for="select-group">Group</label>
-      <select name="select-group" class="ml-2">
-        <option v-for="(item, id) in group" :key="id" value="item">{{ item }}</option>
+      <select v-model="selectGroup" name="select-group" class="ml-2">
+        <option v-for="(item, index) in group" :key="index" :value="item" :selected="index === 0">{{ item }}</option>
       </select>
     </div>
 
     <div class="ml-5">
       <label for="select-subgrupo">SubGroup</label>
-      <select name="select-subgroup" class="ml-2">
-        <option v-for="(item, id) in subgroup" :key="id" value="item">{{ item }}</option>
+      <select v-model="selectSubGroup" name="select-subgroup" class="ml-2">
+        <option v-for="(item, index) in subgroup" :key="index" :value="item" :selected="index === 0">{{ item }}</option>
       </select>
     </div>
 
     <div class="ml-20">
-      <button class="rounded-lg bg-blue-600 hover:bg-blue-500 active:bg-blue-800 focus:outline-none px-5 py-2 text-sm font-medium text-white">Buscar</button>
+      <button @click="searchDays" class="rounded-lg bg-blue-600 hover:bg-blue-500 active:bg-blue-800 focus:outline-none px-5 py-2 text-sm font-medium text-white">Buscar</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { defineEmits } from 'vue';
 
-const years = ref()
-const group = ref()
-const subgroup = ref()
+const emits = defineEmits(['dataSearch']);
 
-years.value = [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030]
-group.value = [1, 2, 3, 4, 5]
-subgroup.value = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+onMounted(() => {
+  const fechaActual = new Date();
+    const yearNow = fechaActual.getFullYear();
+    selectYear.value = yearNow;
+});
+
+
+const years = [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030]
+const group = [1, 2, 3, 4, 5]
+const subgroup = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+
+const selectYear = ref(2020);
+const selectGroup = ref(1);
+const selectSubGroup = ref('A')
+
+const searchDays = () => {
+  if(selectYear.value !== undefined && selectGroup.value !== undefined && selectSubGroup.value !== undefined){
+    const valuesSearch = [selectYear.value, selectGroup.value, selectSubGroup.value];
+    emits('dataSearch', valuesSearch);
+  }
+}
+
+
 </script>
 
-<style lang="sss" scoped></style>
+<style scoped></style>

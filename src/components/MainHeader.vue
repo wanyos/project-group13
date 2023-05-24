@@ -21,7 +21,7 @@
       </nav>
 
       <div class="hidden flex-1 items-center justify-end gap-4 sm:flex">
-        <button class="rounded-lg bg-gray-100 px-5 py-2 text-sm font-medium text-gray-500">Log In</button>
+        <button @click="login" class="rounded-lg bg-gray-100 px-5 py-2 text-sm font-medium text-gray-500">Log In</button>
         <button class="rounded-lg bg-blue-600 px-5 py-2 text-sm font-medium text-white">Sign up</button>
       </div>
 
@@ -52,6 +52,29 @@
 
 <script setup>
 import { RouterLink } from 'vue-router'
+import { onMounted } from "vue"
+import { googleOneTap } from "vue3-google-login"
+import { googleTokenLogin } from "vue3-google-login"
+
+
+const login = () => {
+  googleTokenLogin().then((response) => {
+    ///console.log("Handle the response", response)
+    return response;
+  })
+}
+
+
+// onMounted(() => {
+//     googleOneTap({ autoLogin: true })
+//     .then((response) => {
+//       //console.log("Handle the response", response)
+//     })
+//     .catch((error) => {
+//       //console.log("Handle the error", error)
+//     })
+// })
+
 </script>
 
 <style lang="css" scoped></style>

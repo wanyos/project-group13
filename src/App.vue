@@ -7,7 +7,7 @@ import MainHeader from './components/MainHeader.vue';
 
 <template>
   <header>
-    <div class="container w-full mx-auto mt-2 border-2 border-red-300">
+    <div class="container w-full mx-auto mt-2 drop-shadow-xl">
       <nav>
        <MainHeader/>
       </nav>
