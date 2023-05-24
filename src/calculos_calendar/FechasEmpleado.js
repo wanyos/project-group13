@@ -38,13 +38,11 @@ export function getListaSubgrupoEmpleado(year, grupo, subgrupo) {
 
 
 function getFechaSubgrupo2020(grupo, subgrupo) {
-    if(grupo !== NaN && subgrupo !== NaN){
         let pos = getNumeroSubgrupo(subgrupo);
         if(grupo >= 1 && grupo <= 5){
             return subgrupos[grupo-1][pos];      
         }
         return subgrupos[grupo-1][0];
-    }
 }
 
 function getNumeroSubgrupo(subgrupo) {
