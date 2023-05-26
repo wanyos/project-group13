@@ -3,7 +3,7 @@
 
     <div class="ml-5">
       <label for="year">Year</label>
-      <select v-model="selectYear" name="select-year" class="ml-2">
+      <select v-model="selectYear" @change="changeYear" name="select-year" class="ml-2">
         <option v-for="(item, index) in years" :key="index" :value="item" :selected="index === 0">{{ item }}</option>
       </select>
     </div>
@@ -30,31 +30,37 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { defineEmits } from 'vue';
+import { storeDays } from '../../stores/storeDays';
 
-const emits = defineEmits(['dataSearch']);
-
-onMounted(() => {
-  const fechaActual = new Date();
-    const yearNow = fechaActual.getFullYear();
-    selectYear.value = yearNow;
-});
-
+const stDays = storeDays();
 
 const years = [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030]
 const group = [1, 2, 3, 4, 5]
 const subgroup = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 
-const selectYear = ref(2020);
+const selectYear = ref(0);
 const selectGroup = ref(1);
 const selectSubGroup = ref('A')
 
-const searchDays = () => {
-  if(selectYear.value !== undefined && selectGroup.value !== undefined && selectSubGroup.value !== undefined){
-    const valuesSearch = [selectYear.value, selectGroup.value, selectSubGroup.value];
-    emits('dataSearch', valuesSearch);
-  }
-}
+
+onMounted(() => {
+  const yearNow = new Date();
+  selectYear.value = yearNow.getFullYear();
+  stDays.setDaysYearCalendar();
+});
+
+
+const changeYear = () => {
+      stDays.year = selectYear.value;
+      stDays.setDaysYearCalendar();
+    };
+
+
+    const searchDays = () => {
+      stDays.group = selectGroup.value;
+      stDays.subgroup = selectSubGroup.value;
+      stDays.setListFreeEmployee();
+    }
 
 
 </script>

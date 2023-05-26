@@ -65,15 +65,15 @@ const login = () => {
 }
 
 
-// onMounted(() => {
-//     googleOneTap({ autoLogin: true })
-//     .then((response) => {
-//       //console.log("Handle the response", response)
-//     })
-//     .catch((error) => {
-//       //console.log("Handle the error", error)
-//     })
-// })
+onMounted(() => {
+    googleOneTap({ autoLogin: true })
+    .then((response) => {
+      //console.log("Handle the response", response)
+    })
+    .catch((error) => {
+      //console.log("Handle the error", error)
+    })
+})
 
 </script>
 

@@ -2,7 +2,7 @@
     <div class="flex justify-center">
         <div class="grid grid-rows-6 grid-cols-3 w-auto">
             <div v-for="(m, index) in months" :key="index" class="flex justify-center ml-3 mr-3 mb-3">
-                <MonthCalendar :month="m" :daysOfMonth="props.arrayMonths[index]"/>
+                <MonthCalendar :month="m" :listaLibres="stDays.getListMonthDays(index)"/>
             </div>
         </div>
     </div>
@@ -10,54 +10,52 @@
 
 <script setup>
 import MonthCalendar from './MonthCalendar.vue';
-import { defineProps, watchEffect } from 'vue';
-import { getListaLibresEmpleado, getListaSubgrupoEmpleado, getListaSubComunesEmpleado } from '../../calculos_calendar/FechasEmpleado.js';
+import { defineProps, ref, onMounted } from 'vue';
+import { storeDays } from '../../stores/storeDays';
 
+const stDays = storeDays();
 
-const props = defineProps({
-    arrayMonths: {
-        type: Array,
-        required: true
-    },
-    arrayData: {
-        type: Array //year, group, subgroup
-    }
-});
-
+const month = ref();
 
 let listaLibres = [];
 let listaSubgrupo = [];
 let listaSubComunes = [];
 
 
-watchEffect(() => {
-    let libres = [];
-    let subgrupo = [];
-    let subcomunes = [];
-        const propValue = props.arrayData;
-        if (propValue) {
-            const y = Number.parseInt(props.arrayData.year);
-            const g = Number.parseInt(props.arrayData.group);
-            const s = props.arrayData.subgroup;
+onMounted(() => {
+    // arrayDays.value = stDays.daysOfMont;
+    // console.log('body', arrayDays.value);
+    // console.log('pirmer mes', arrayDays.value[0]);
+    // const array = Object.values(arrayDays.value[0]);
+    // console.log('array', array);
+    // arrayOfArrays = arrayDays.value.map(obj => Object.values(obj));
+    // console.log('final', arrayOfArrays);
+   stDays.setListFreeEmployee();
+});
 
-            if(!isNaN(y) && !isNaN(g)){
-                clearList();
-                libres = getListaLibresEmpleado(y, g);
-                subgrupo = getListaSubgrupoEmpleado(y, g, s);
-                subcomunes = getListaSubComunesEmpleado(y, g, s);
-                // console.log('funcion', listaLibres);
-                // console.log('funcion', listaSubgrupo);
-                // console.log('funcion', listaSubComunes);
-                filterList(libres, subgrupo, subcomunes);
-            }
-        }
-    });
 
-    const clearList = () => {
-        listaLibres.splice(0);
-        listaSubgrupo.splice(0);
-        listaSubComunes.splice(0);
-    }
+// watchEffect(() => {
+//     let libres = [];
+//     let subgrupo = [];
+//     let subcomunes = [];
+//         const propValue = props.arrayData;
+//         if (propValue) {
+//             const y = Number.parseInt(props.arrayData.year);
+//             const g = Number.parseInt(props.arrayData.group);
+//             const s = props.arrayData.subgroup;
+
+//             if(!isNaN(y) && !isNaN(g)){
+//                 clearList();
+//                 libres = getListaLibresEmpleado(y, g);
+//                 subgrupo = getListaSubgrupoEmpleado(y, g, s);
+//                 subcomunes = getListaSubComunesEmpleado(y, g, s);
+//                 // console.log('funcion', listaLibres);
+//                 // console.log('funcion', listaSubgrupo);
+//                 // console.log('funcion', listaSubComunes);
+//                 filterList(libres, subgrupo, subcomunes);
+//             }
+//         }
+//     });
 
 
 const filterList = (libres, subgrupo, subcomunes) => {
@@ -78,7 +76,6 @@ const filterLibres = (listaOrigen, listaDestino) => {
         }
             listaDestino[mes].push(fecha);
         });
-        console.log('libres', listaLibres)
     }
 
 
