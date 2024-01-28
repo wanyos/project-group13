@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { defineProps, onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { storeDays } from '../../stores/storeDays';
 
 const stDays = storeDays();
