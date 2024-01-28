@@ -27,9 +27,9 @@ const setDaysYearCalendar = async () => {
         const arrayMonth = getDaysOfMonth(m, year.value);
         daysOfMont.value.push(arrayMonth);
     }    
-    // console.log('year store', year.value);
-    // console.log('year funcion store', year.value);
-    // console.log('array dias store', daysOfMont.value);
+    console.log('year store', year.value);
+    console.log('year funcion store', year.value);
+    console.log('array dias store', daysOfMont.value);
 }
 
 const setListFreeEmployee = () => {

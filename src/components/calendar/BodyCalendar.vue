@@ -2,7 +2,7 @@
     <div class="flex justify-center">
         <div class="grid grid-rows-6 grid-cols-3 w-auto">
             <div v-for="(m, index) in months" :key="index" class="flex justify-center ml-3 mr-3 mb-3">
-                <MonthCalendar :month="m" :listaLibres="stDays.getListMonthDays(index)"/>
+                <MonthCalendar :month="m" :listaLibres="stDays.getListMonthDays(index)" />
             </div>
         </div>
     </div>
@@ -10,7 +10,7 @@
 
 <script setup>
 import MonthCalendar from './MonthCalendar.vue';
-import { defineProps, ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { storeDays } from '../../stores/storeDays';
 
 const stDays = storeDays();
@@ -30,7 +30,7 @@ onMounted(() => {
     // console.log('array', array);
     // arrayOfArrays = arrayDays.value.map(obj => Object.values(obj));
     // console.log('final', arrayOfArrays);
-   stDays.setListFreeEmployee();
+    stDays.setListFreeEmployee();
 });
 
 
@@ -59,11 +59,11 @@ onMounted(() => {
 
 
 const filterList = (libres, subgrupo, subcomunes) => {
-   if(libres.length > 0 && subgrupo.length > 0 && subcomunes.length > 0){
-      filterLibres(libres, listaLibres);
-      filterLibres(subgrupo, listaSubgrupo);
-      filterLibres(subcomunes, listaSubComunes)
-   }
+    if (libres.length > 0 && subgrupo.length > 0 && subcomunes.length > 0) {
+        filterLibres(libres, listaLibres);
+        filterLibres(subgrupo, listaSubgrupo);
+        filterLibres(subcomunes, listaSubComunes)
+    }
 }
 
 const filterLibres = (listaOrigen, listaDestino) => {
@@ -74,9 +74,9 @@ const filterLibres = (listaOrigen, listaDestino) => {
         if (!listaDestino[mes]) {
             listaDestino[mes] = [];
         }
-            listaDestino[mes].push(fecha);
-        });
-    }
+        listaDestino[mes].push(fecha);
+    });
+}
 
 
 
@@ -84,6 +84,4 @@ const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 
 
 </script>
 
-<style lang="css" scoped>
-
-</style>
+<style lang="css" scoped></style>
